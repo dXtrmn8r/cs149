@@ -1,3 +1,4 @@
+  363  git init
   364  git remote add origin git@github.com:dXtrmn8r/cs149.git
   365  git config --global user.email "dXtrmn8r@outlook.com"
   366  git config --global user.name "dXtrmn8r"
