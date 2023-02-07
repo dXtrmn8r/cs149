@@ -1,40 +1,17 @@
-  363  git init
-  364  git remote add origin git@github.com:dXtrmn8r/cs149.git
-  365  git config --global user.email "dXtrmn8r@outlook.com"
-  366  git config --global user.name "dXtrmn8r"
-  367  git config
-  368  git config --global
-  369  git config --global -l
-  370  git config --global user.name "dXtrmn8r"
-  371  git config --global -l
-  372  git add .
-  373  ls
-  374  cd WS1
-  375  git add .
-  376  ls
-  377  git status
-  378  git rm out.pdf
-  379  git rm -f out.pdf
-  380  ls
-  381  wget -O out.pdf https://tinyurl.com/yy94jltt
-  382  ls -latr
-  383  history > cmds.log | tail -40
-  384  git add *.c
-  385  vim cmds.log
-  386  git add cmds.log
-  387  git commit -m "Added source files"
-  388  git branch
-  389  git push -u origin master
-  390  ls
-  391  vim cmds.log
-  392  cd ..
-  393  ls
-  394  cd cs149
-  395  ls
-  396  rm -rf .git
-  397  git init
-  398  git branch -m main
-  399  cd WS1
-  400  ls
-  401  vim cmds.log
-  402  history | tail -40 > cmds.log
+    1  pwd
+    2  cd ~
+    3  cd Desktop
+    4  ls -latr; mkdir cs149; cd cs149
+    5  cd ..
+    6  rmdir cs149
+    7  git clone git@github.com:/dXtrmn8r/cs149 cs149
+    8  cd cs149
+    9  git init
+   10  git remote add origin git@github.com:/dXtrmn8r/cs149
+   11  git config --global user.email "dXtrmn8r@outlook.com"
+   12  git config --global user.name "dXtrmn8r"
+   13  mkdir WS1
+   14  cd WS1
+   15  wget -O out.pdf https://tinyurl.com/yy94jltt
+   16  ls -latr
+   17  history > cmds.log
