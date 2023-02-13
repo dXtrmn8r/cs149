@@ -22,7 +22,8 @@ int main(void) {
    int userNum;
    int x;
    scanf("%d %d", &userNum, &x);
-   
+
+   // Prints the result of the three divisions   
    for (int i = 0; i < 3; i++) {
       printf("%d", userNum /= x);
       if (i != 2) printf(" ");

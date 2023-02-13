@@ -17,16 +17,19 @@
 int main(void) {
 
    /* Type your code here. */
+   // The first number inputted is automatically the min (and the max)
    int min;
    scanf("%d", &min);
    
    int x;
    scanf("%d", &x);
+   // Compares between the current minimum and x
    if (x < min)
       min = x;
       
    int y;
    scanf("%d", &y);
+   // Compares between the current minimum and y
    if (y < min)
       min = y;
    
