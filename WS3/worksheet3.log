@@ -1,0 +1,571 @@
+    1  apt list --upgradable
+    2  apt-get upgrade
+    3  sudo apt-get upgrade
+    4  sudo apt-get install xubuntu-desktop
+    5  sudo apt-get install ubuntu-desktop
+    6  sudo reboot
+    7  gcc
+    8  g++
+    9  sudo apt-get list build-essential
+   10  sudo apt-get info build-essential
+   11  sudo apt-get install build-essential
+   12  ls
+   13  cd cs149
+   14  mkdir cs149
+   15  cd cd149
+   16  ls
+   17  cd cs149
+   18  ls
+   19  sudo apt install chromium
+   20  sudo apt install chromium-bsu
+   21  sudo apt install chromium-browser
+   22  pid kill 2542
+   23  kill 2542
+   24  sudo kill 2542
+   25  sudo apt install chromium-browser
+   26  ls
+   27  rm -rf cs149
+   28  ls
+   29  mkdir Developer
+   30  cd Developer
+   31  ls
+   32  mkdir cs149
+   33  cd cs149
+   34  git config 
+   35  git config user.name=dXtrmn8r
+   36  git config --global user.name=dXtrmn8r
+   37  git config --add user.name=dXtrmn8r
+   38  git clone git@github.com:dXtrmn8r/cs149.git
+   39  ls
+   40  gpg --full-generate-key
+   41  gpg --list-secret-keys --keyid-format=long
+   42  gpg --armor --export 7B18BB4A545B1F32
+   43  sudo apt-install xsel
+   44  sudo apt install xsel
+   45  sudo dpkg --configure -a
+   46  sudo apt install xsel
+   47  gpg --armor --export 7B18BB4A545B1F32 | xsel -ib
+   48  exit
+   49  cd Developer/cs149
+   50  ls
+   51  git clone git@github.com:dXtrmn8r/cs149.git
+   52  ssh-keygen -t ed25519 -C "dXtrmn8r@outlook.com"
+   53  eval "$(ssh-agent -s)"
+   54  ssh-add ~/.ssh/id_ed25519
+   55  cat ~/.ssh/id_ed25519 | xsel -ib
+   56  cat ~/.ssh/id_ed25519.pub | xsel -ib
+   57  alias copy='xsel -ib'
+   58  git clone git@github.com:dXtrmn8r/cs149.git
+   59  ls
+   60  cd ..
+   61  rm -rf cs149
+   62  git clone git@github.com:dXtrmn8r/cs149.git
+   63  ls
+   64  cd cs149
+   65  ls
+   66  cd WS1
+   67  ls
+   68  vim cs149_1_15.c 
+   69  exit
+   70  sudo apt install firefox
+   71  exit
+   72  cd Developer
+   73  cd cs149
+   74  ls
+   75  cd WS1
+   76  ls
+   77  cd ..
+   78  mkdir WS2 WS3 WS4 A1 A2 A3 A4
+   79  git add WS2
+   80  git add WS3 WS4 A1 A2 A3 A4
+   81  git commit -m "Added additional folders."
+   82  git config --global user.email "dXtrmn8r@outlook.com"
+   83  git config --global user.name "dXtrmn8r"
+   84  git config --global -l
+   85  gpg --armor --export 7B18BB4A545B1F32
+   86  git config --global user.signingkey "7B18BB4A545B1F32"
+   87  git config --global commit.gpgsign true
+   88  which gpg
+   89  git config --global gpg.program="/usr/bin/gpg"
+   90  git config --global gpg.program=gpg
+   91  git config --global -l
+   92  git commit -m "Added additional folders."
+   93  cd WS1
+   94  ls
+   95  nvim
+   96  sudo snap install nvim
+   97  sudo apt install nvim
+   98  sudo apt install neovim
+   99  alias vim=nvim
+  100  vim
+  101  cd 
+  102  ls
+  103  ls -al
+  104  zsh
+  105  echo $0
+  106  ls
+  107  cd Developer
+  108  cs cs149
+  109  ls
+  110  cd cs149
+  111  ls
+  112  cd A1
+  113  ls
+  114  cd ..
+  115  cd WS1
+  116  ls
+  117  vim cs149_1_15.c 
+  118  gcc cs149_1_15 -S
+  119  gcc cs149_1_15 -s
+  120  ls
+  121  gcc cs149_1_15 -s
+  122  man gcc
+  123  gcc cs149_1_15 -S cs149_1_15.s
+  124  gcc cs149_1_15.c -S
+  125  ls
+  126  cat cs149_1_15.s
+  127  sudo apt
+  128  apt list
+  129  apt list --installed
+  130  sudo apt install build-essentials
+  131  sudo apt upgrade
+  132  sudo apt autoremove
+  133  sudo apt upgrade
+  134  ls
+  135  vim .bashrc
+  136  exit
+  137  sudo apt install spice-vdagent
+  138  sudo apt-mark auto spice-vdagent
+  139  sudo apt
+  140  sudo apt show spice-webdavd
+  141  apt list --installed
+  142  sudo apt install spice-webdavd
+  143  cd /etc/gdm3/
+  144  ls
+  145  sudo vim custom.conf
+  146  sudo reboot
+  147  cd /etc
+  148  ls
+  149  cd gdm3
+  150  vim
+  151  nvim custom.conf
+  152  sudo nvim custom.conf
+  153  exit
+  154  sudo reboot
+  155  sudo snap remove firefox
+  156  sudo add-apt-repository ppa:mozillateam/ppa
+  157  sudo apt install firefox
+  158  [200~echo '
+  159  Package: *
+  160  Pin: release o=LP-PPA-mozillateam
+  161  Pin-Priority: 1001
+  162  [200~echo '
+  163  Package: *
+  164  Pin: release o=LP-PPA-mozillateam
+  165  Pin-Priority: 1001
+  166  ' | sudo tee /etc/apt/preferences.d/mozilla-firefox~
+  167  echo '
+  168  Package: *
+  169  Pin: release o=LP-PPA-mozillateam
+  170  Pin-Priority: 1001
+  171  ' | sudo tee /etc/apt/preferences.d/mozilla-firefox~
+  172  sudoo apt install firefox
+  173  sudo apt install firefox
+  174  sudo apt upgrade
+  175  sudo apt remove chromium-browser
+  176  sudo apt-get autoremove
+  177  uname -m
+  178  sudo apt install firefox_109.0+build2-0ubuntu0.18.04.1_amd64.deb
+  179  sudo apt install firefox_109.0
+  180  sudo apt install synaptic
+  181  sudo apt install firefox
+  182  sudo apt reinstall firefox
+  183  ls
+  184  cd Developer/cs149
+  185  ls
+  186  cd WS1
+  187  ls
+  188  nvim cs149_1_15.c
+  189  nvim cs149_1_16.c
+  190  nvim cs149_1_17.c
+  191  nvim cs149_1_18.c
+  192  nvim cs149_1_19.c
+  193  nvim cs149_1_20.c
+  194  git add *.c
+  195  git status
+  196  git commit -m "Added *.c source files."
+  197  git push
+  198  git branch
+  199  man git
+  200  man git-push
+  201  man git-clone
+  202  ls
+  203  history > cmds.log
+  204  git add cmds.log *.c
+  205  git commit -m "Added command history." -a
+  206  git push origin main
+  207  cd ..
+  208  ls -latr
+  209  cd WS1
+  210  history > cmds.log
+  211  git commit -m "Modified command history." -a
+  212  git push origin main
+  213  history | tail 20 > cmds.log
+  214  history | tail -20 > cmds.log
+  215  history > cmds.log
+  216  history | tail -20 > cmds.log
+  217  cd ..
+  218  rm .git
+  219  rm -rf .git
+  220  git init
+  221  git init main
+  222  ls
+  223  rm -rf main
+  224  ls
+  225  cd WS1
+  226  ls
+  227  git add *.c cmds.log out.pdf
+  228  git commit -m "Initial commit."
+  229  git remote add origin git@github.com:dXtrmn8r/cs149.git
+  230  git push -u origin main
+  231  git push -u origin master
+  232  git branch -m main
+  233  git push -u origin main
+  234  git pull master
+  235  git pull
+  236  git push main
+  237  git push
+  238  git push origin main
+  239  cd ..
+  240  rm -rf .git
+  241  git pull git@github.com:dXtrmn8r/cs149.git
+  242  git clone git@github.com:dXtrmn8r/cs149.git
+  243  ls
+  244  rm -rf cs149
+  245  cd ..
+  246  git clone git@github.com:dXtrmn8r/cs149.git
+  247  cd cs149
+  248  git init -m "main"
+  249  git init -b "main"
+  250  git remote add origin git@github.com:dXtrmn8r/cs149.git
+  251  git pull
+  252  git pull origin main
+  253  ls
+  254  cd WS1
+  255  ls
+  256  git add cmds.log *.c
+  257  cd ..
+  258  git status
+  259  git commit -m "Initial commit." -a
+  260  git branch
+  261  git push -u origin master
+  262  git push -u origin main
+  263  sudo shutdown
+  264  cd Developer/cs149
+  265  ls
+  266  cd WS1
+  267  ls
+  268  nvim cs149_1_15.c
+  269  nvim cs149_1_16.c
+  270  nvim cs149_1_17.c
+  271  nvim cs149_1_16.c
+  272  nvim cs149_1_15.c
+  273  nvim cs149_1_16.c
+  274  nvim cs149_1_15.c
+  275  nvim cs149_1_16.c
+  276  nvim cs149_1_17.c
+  277  nvim cs149_1_18.c
+  278  nvim cs149_1_19.c
+  279  nvim cs149_1_17.c
+  280  nvim cs149_1_19.c
+  281  nvim cs149_1_20.c
+  282  gcc cs149_1_15.c
+  283  gcc cs149_1_16.c
+  284  gcc cs149_1_17.c
+  285  ./a.out
+  286  nvim cs149_1_17.c
+  287  ./a.out
+  288  ./a.out 1 2
+  289  nvim cs149_1_17.c
+  290  ./a.out
+  291  nvim cs149_1_17.c
+  292  gcc cs149_1_18.c
+  293  ./a.out
+  294  gcc cs149_1_19.c
+  295  nvim cs149_1_19.c
+  296  ./a.out
+  297  gcc cs149_1_19.c
+  298  ./a.out
+  299  nvim cs149_1_19.c
+  300  gcc cs149_1_19.c
+  301  ./a.out
+  302  gcc cs149_1_20.c
+  303  ./a.out
+  304  git commit -m "Added documentation to source files"
+  305  git push
+  306  rm cs149_1_15.s
+  307  ls
+  308  rm a.out
+  309  cd Developer
+  310  ls
+  311  cd cs149
+  312  ls
+  313  cd WS1
+  314  ls
+  315  nano cmds.log
+  316  history > cmds.log
+  317  vim cmds.log
+  318  git status
+  319  git push
+  320  git commit -m "Added documentation."
+  321  git push
+  322  exit
+  323  sudo vim /etc/gdm3/custom.conf
+  324  exit
+  325  pwd
+  326  cd ~
+  327  cd Desktop
+  328  ls -latr; mkdir cs149; cd cs149
+  329  cd ..
+  330  rmdir cs149
+  331  git clone git@github.com:/dXtrmn8r/cs149 cs149
+  332  cd cs149
+  333  git init
+  334  git remote add origin git@github.com:/dXtrmn8r/cs149
+  335  git config --global user.email "dXtrmn8r@outlook.com"
+  336  git config --global user.name "dXtrmn8r"
+  337  mkdir WS1
+  338  cd WS1
+  339  wget -O out.pdf https://tinyurl.com/yy94jltt
+  340  ls -latr
+  341  history > cmds.log
+  342  git add cmds.log *.c
+  343  git status
+  344  git commit -m "Cleaned up and restarted history" -a
+  345  git branch
+  346  git push -u origin main
+  347  exit
+  348  nvim .vimrc
+  349  vim
+  350  cd .config
+  351  ls
+  352  cd nvim
+  353  ls
+  354  mkdir nvim; cd nvim
+  355  nvim init.vim
+  356  cd ~
+  357  vim .bashrc
+  358  vim .bash_profile
+  359  sudo reboot 
+  360  cd Developer/
+  361  git clone https://github.com/scheib/chromium-latest-linux.git chromium-install
+  362  cd chromium-install
+  363  ls
+  364  ./run.sh
+  365  run.sh
+  366  sudo apt remove chromium
+  367  sudo snap remove chromium
+  368  ./run.sh
+  369  ./update-and-run.sh
+  370  ./run
+  371  ./run.sh
+  372  sudo apt info
+  373  sudo apt info chromium-browser
+  374  sudo apt info google-chrome
+  375  sudo apt info chrome
+  376  cd ..
+  377  rm -rf chromium-install/
+  378  ls
+  379  cd ~/Downloads
+  380  deb
+  381  ls
+  382  sudo apt install ./google-chrome-stable_current_amd64.deb 
+  383  sudo apt upgrade
+  384  sudo apt install google-chrome
+  385  sudo apt install chrome
+  386  sudo apt upgrade
+  387  sudo apt install software-center*
+  388  sudo apt-get install software-center*
+  389  sudo apt-get update
+  390  sudo apt-get upgrade
+  391  sudo reboot 0
+  392  sudo apt update
+  393  ping 91.189.91.39:80
+  394  ping 127.0.0.1
+  395  dpkg
+  396  ls
+  397  cd Downloads
+  398  dpkg-deb --help
+  399  software-center
+  400  sudo apt install ubuntu-restricted-extras
+  401  sudo shutdown 0
+  402  date
+  403  pwd
+  404  cd ~
+  405  cd Desktop/
+  406  cd cs149
+  407  ls -latr; mkdir WS2; cd WS2
+  408  ls -latr
+  409  echo $?
+  410  man ps
+  411  ps aux
+  412  top
+  413  man top
+  414  history > worksheet2.log
+  415  head worksheet2.log
+  416  tail worksheet2.log
+  417  cat worksheet2.log
+  418  git add *.c worksheet2.log
+  419  git commit -m "Updated for WS2"
+  420  git push
+  421  clear
+  422  reset
+  423  exti
+  424  exit
+  425  cd Desktop/cs149/WS2
+  426  ls
+  427  gcc cs149_2.34 -Wall -Werror -o welcome
+  428  gcc cs149_2.34.c -Wall -Werror -o welcome
+  429  vim cs149_2.34.c
+  430  git pull
+  431  git status
+  432  git restore cs149_2.34.c
+  433  gcc cs149_2.34.c -Wall -Werror -o welcome
+  434  ./welcome
+  435  exit
+  436  cd Desktop/cs149/WS2
+  437  gcc cs149_2.34.c -Wall -Werror -o welcome
+  438  ./welcome
+  439  git status
+  440  git commit -m "Improved git restore cs149_2.34.c
+  441  git restore cs149_2.34.c
+  442  for
+  443  for file
+  444  for file in cs149_*; do mv "$file" "${file#cs149_}";done;
+  445  ls -l
+  446  cd ..
+  447  cd WS1
+  448  for file in cs149_*; do mv "$file" "${file#cs149_}";done;
+  449  git commit -m "Changed file names"
+  450  git add *.c
+  451  cd ../WS2
+  452  git add *.c
+  453  git commit --amend -m "Changed file names"
+  454  git rm cs149_2*.c
+  455  git rm cs149_3*.c
+  456  git status
+  457  git commit -m "Removed redundant files"
+  458  git push
+  459  git pull
+  460  git commit -m "Removed redundant files" --rebase
+  461  git pull
+  462  cd ..
+  463  git pull
+  464  git pull --rebase
+  465  git stash
+  466  git pull
+  467  cd ..
+  468  rm -rf cs149
+  469  git clone git@github.com:dXtrmn8r/cs149.git
+  470  cd cs149/WS1
+  471  for file in cs149_*; do mv "$file" "${file#cs149_}";done;
+  472  git add *.c
+  473  cd ../WS2
+  474  for file in cs149_*; do mv "$file" "${file#cs149_}";done;
+  475  git add *.c
+  476  git status
+  477  cd ..
+  478  git status
+  479  git commit -m "Renamed files for compliance"
+  480  git push
+  481  cd WS1
+  482  git rm cs149*.c
+  483  cd ../WS2
+  484  git rm cs149*.c
+  485  git commit -m "Removed redundant files"
+  486  git push
+  487  vim 2.25.c
+  488  vim 2.34.c
+  489  vim 3.22.c
+  490  git status
+  491  git commit -m "Added required documentation"
+  492  git add *.c
+  493  git commit -m "Added required documentation"
+  494  git push
+  495  gcc --version
+  496  exit
+  497  cd Desktop/cs149/WS2
+  498  ls
+  499  gcc 2.34.c -Wall -Werr -o welcome
+  500  gcc 2.34.c -Wall -Werror -o welcome
+  501  ./welcome
+  502  gcc 2.34.c -Wall -Werror -o welcome
+  503  ./welcome
+  504  gcc 2.34.c -Wall -Werror -o welcome
+  505  ./welcome
+  506  sudo su
+  507  pstree
+  508  echo $?
+  509  ls
+  510  echo $?
+  511  echo $ENV
+  512  printenv
+  513  zsh
+  514  sudo apt install zsh
+  515  zsh
+  516  ls -a
+  517  cd Developer
+  518  cd cs149
+  519  nvim fork.c
+  520  gcc fork.c -o fork -Wall -Werror
+  521  ./fork
+  522  nvim fork.c
+  523  gcc fork.c -o fork -Wall -Werror
+  524  ./fork
+  525  nvim fork.c
+  526  gcc fork.c -o fork -Wall -Werror
+  527  ./fork
+  528  nvim fork.c
+  529  gcc fork.c -o fork -Wall -Werror
+  530  nvim fork.c
+  531  gcc fork.c -o fork -Wall -Werror
+  532  exit
+  533  top
+  534  ps
+  535  ps aux
+  536  top
+  537  exit
+  538  od
+  539  ls
+  540  cd Developer
+  541  ls
+  542  cd cs149
+  543  git pull
+  544  ls
+  545  cd WS2
+  546  ls
+  547  cd ../..
+  548  rm -rf cs149
+  549  cp ~/Desktop/cs149
+  550  cp ~/Desktop/cs149 cs149
+  551  cp -r ~/Desktop/cs149 cs149
+  552  cd cs149
+  553  ls
+  554  cd WS2
+  555  ls
+  556  ./welcome
+  557  exit
+  558  cd Desktop/cs149
+  559  ls
+  560  mkdir WS3; cd WS3
+  561  wget https://github.com/torvalds/linux/archive/master.zip
+  562  unzip master.zip
+  563  cd linux-master
+  564  pwd
+  565  alias l='ls -latr'
+  566  l
+  567  find . -name mem.c
+  568  find . -name mem.c | xargs head
+  569  find . -name mem.c | xargs grep 86
+  570  cd ..
+  571  history > worksheet3.log
