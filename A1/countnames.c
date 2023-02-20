@@ -45,7 +45,7 @@ int main(int argc, const char *argv[]) {
 	const char *filename = argv[1];
 	FILE *fp = fopen(filename, "r");
 	
-	if (fp == NULL) {				// if the file is not in the same directory as the exec
+	if (fp == NULL || argc < 2) {	// if the file is not in the same directory as the exec
 		fprintf(stderr, "cannot open file\n");
 		return 1;
 	}
