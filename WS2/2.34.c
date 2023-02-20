@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 /**
  * Program that prints a custom welcome message.
  * Author names:        Darren Peralta, Henry Choy
@@ -17,9 +18,11 @@
 int main(void) {
    char userName[50];
    
-   scanf("%s", userName);
+   if (fgets(userName, sizeof(userName), stdin) != NULL) {
    /* Type your code here. */
-   printf("Hello %s, and welcome to CS Online!\n", userName);
+   	userName[strcspn(userName, "\n")] = '\0';
+   	printf("Hello %s, and welcome to CS Online!\n", userName);
+   }
 
    return 0;
 }
