@@ -1,23 +1,18 @@
-   67  wget http://www.apuebook.com/src.3e.tar.gz
-   68  gunzip src.3e.tar.gz 
-   69  tar xvf src.3e.tar 
-   70  cd apue.3e/
-   71  cd proc
-   72  make all
-   73  ./fork1
-   74  ./fork2
-   75  pwd
-   76  pstree
-   77  ps -a -f -x
-   78  ps -a -f -x | more
-   79  top
-   80  man kill
-   81  echo $?
-   82  echo $$
-   83  history
-   85  history > worksheet.log
-   86  ls
-   87  cd ./
-   88  cd ..
-   89  history > worksheet.log
-   90  tail worksheet4.log
+wget http://www.apuebook.com/src.3e.tar.gz
+gunzip src.3e.tar.gz 
+tar xvf src.3e.tar 
+cd apue.3e/
+cd proc
+make all
+./fork1
+./fork2
+pwd
+pstree
+ps -a -f -x
+ps -a -f -x | more
+top
+man kill
+echo $?
+echo $$
+history > worksheet.log
+tail worksheet4.log
