@@ -3,8 +3,10 @@
  *
  *  Author names:                   Darren Peralta, Henry Choy
  *  Author emails:                  {darrencarl.peralta,henry.choy}@sjsu.edu
- *  Last modified date:             02/19/2023
+ *  Last modified date:             03/01/2023
  *  Creation date:                  02/15/2023
+ *
+ *  Updated after assignment 1 has been graded.
  */
 
 #include <stdio.h>
@@ -12,6 +14,9 @@
 #include <ctype.h>                  // necessary for character functions
 #include <stdbool.h>                // to use booleans in C
 #include <stdlib.h>                 // to be able to use malloc and free operations
+
+#define MAX_NAMES           100     // maximum number of names to read
+#define MAX_CHARS           30      // maximum number of characters to read
 
 /**
  * Method that returns true if all the characters in a string are whitespace.
@@ -52,16 +57,17 @@ int main(int argc, const char *argv[]) {
     
     unsigned long lines_read = 0;
     long bytes_read;                // indicates the number of bytes read
-    char nameList[100][30];         // array where the names will be stored
-    int nameCount[100];             // count of all names stored on nameList
+    // array where the names will be stored
+    char nameList[MAX_NAMES][MAX_CHARS];
+    int nameCount[MAX_NAMES];       // count of all names stored on nameList
     int names_stored = 0;           // number of names stored
     
     // initializes each element in nameCount to 0
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < MAX_NAMES; i++) {
         nameCount[i] = 0;
     }
     
-    size_t size = 30;               // maximum number of characters to be read
+    size_t size = MAX_CHARS;        // maximum number of characters to be read
     char *input = NULL;             // the line to be inputted
     
     // this loop will execute when it hasn't read to the end of the file.
