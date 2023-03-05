@@ -71,6 +71,8 @@ int main(int argc, const char *argv[]) {
     char nameList[MAX_NAMES][MAX_CHARS];
     int nameCount[MAX_NAMES];       // count of all names stored on nameList
     int names_stored = 0;           // number of names stored
+
+
     
     // initializes each element in nameCount to 0
     for (int i = 0; i < MAX_NAMES; i++) {
