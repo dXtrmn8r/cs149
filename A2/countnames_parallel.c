@@ -15,6 +15,7 @@
 #include <stdbool.h>                // to use booleans in C
 #include <stdlib.h>                 // to be able to use malloc and free operations
 #include <unistd.h>                 // to be able to use pipe and fork functions
+#include <sys/wait.h>               // to be able to use wait functions
 
 #define MAX_NAMES           100     // maximum number of names to read
 #define MAX_CHARS           30      // maximum number of characters to read
@@ -175,12 +176,12 @@ int main(int argc, const char *argv[]) {
 
     for (int argn = 1; argn < argc; argn++) {
         
-        int status;                                 // exit code status
+        int pid_status;                                 // exit code status
         
-        wait(&status);                              
-        
+        wait(&pid_status);                              // waits for child processes to finish
+       
         // if process exited normally
-        if (WIFEXITED(status) == 0) {
+        if (WIFEXITED(pid_status) && WEXITSTATUS(pid_status) == 0) {
             int num_local_names;
             struct name_record local_names[100];
             
@@ -202,6 +203,7 @@ int main(int argc, const char *argv[]) {
                     }
                 }
                 
+                // creates a new record if it didn't already exist
                 if (name_already_stored == false) {
                     strcpy(names[names_stored].name, local_names[i].name);
                     names[names_stored].count += local_names[i].count;
