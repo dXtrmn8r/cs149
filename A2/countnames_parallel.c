@@ -85,7 +85,8 @@ int main(int argc, const char *argv[]) {
         strcpy(names[i].name,"");
         names[i].count = 0;
     }
-    
+
+    // if pipe fails to open    
     if (pipe(fd) == -1) {
         fprintf(stderr, "ERROR: Pipe failed.");
         return PIPE_ERROR;
@@ -98,16 +99,19 @@ int main(int argc, const char *argv[]) {
     // each file in command line arguments runs its own thread
     for (int argn = 1; argn < argc; argn++) {
         
-        const char *filename = argv[argn];          // filename
-        cpid = fork();                              // forks child process
+        const char *filename = argv[argn];              // filename
+        cpid = fork();                                  // forks child process
         
-        if (cpid < 0) {                             // fork failed
+        if (cpid < 0) {                                 // fork failed
             fprintf(stderr, "ERROR: Fork from pid %d failed.", getpid());
             return FORK_ERROR;
-        } else if (cpid == 0) {                     // this is the child process
-            FILE *file_pointer = fopen(filename, "r");
-            int local_names_stored = 0;
-            struct name_record local_record[MAX_NAMES];
+        } else if (cpid == 0) {                         // this is the child process
+            FILE *file_pointer = fopen(filename, "r");  // opens file with given filename
+
+            int local_names_stored = 0;                 // local record: number of local names stored
+            struct name_record local_record[MAX_NAMES]; // local name record
+            
+            // initialize local name record
             strcpy(local_record[0].name,"");
             local_record[0].count = 0;
             
@@ -154,11 +158,11 @@ int main(int argc, const char *argv[]) {
             close(fd[0]);                           // closes reading end of pipe
 
             // write failures because of unavailable resources
-            if (write(fd[1], &local_names_stored, sizeof(int)) < 0) {
+            if (write(fd[1], &local_names_stored, sizeof(int)) < 0) {       // writes number of local names in record to pipe
                 fprintf(stderr, "Warning - write failed\n.");
             }
             
-            if (write(fd[1], local_record, sizeof(local_record)) < 0) {
+            if (write(fd[1], local_record, sizeof(local_record)) < 0) {     // writes local record to pipe
                 fprintf(stderr, "Warning - write failed\n.");
             }
             
@@ -176,11 +180,11 @@ int main(int argc, const char *argv[]) {
 
     for (int argn = 1; argn < argc; argn++) {
         
-        int pid_status;                                 // exit code status
+        int pid_status;                             // exit code status
         
-        wait(&pid_status);                              // waits for child processes to finish
+        wait(&pid_status);                          // waits for child processes to finish
        
-        // if process exited normally
+        // if process exited normally and successfully
         if (WIFEXITED(pid_status) && WEXITSTATUS(pid_status) == 0) {
             int num_local_names;
             struct name_record local_names[100];
@@ -189,7 +193,7 @@ int main(int argc, const char *argv[]) {
             read(fd[0], &num_local_names, sizeof(int));
             read(fd[0], local_names, sizeof(local_names));
                 
-            bool name_already_stored = false;
+            bool name_already_stored = false;       // name already stored on global record (names[])
             
             // go through each name from local_names (piped data)
             for (int i = 0; i < num_local_names; i++) {
@@ -213,7 +217,7 @@ int main(int argc, const char *argv[]) {
         }
     }
     
-    close(fd[0]);
+    close(fd[0]);                                   // closes reading end of pipe
     
     
     // prints each name on nameList with the number of names in nameCount
