@@ -13,9 +13,9 @@
 #include <string.h>                 // necessary for string functions
 #include <ctype.h>                  // necessary for character functions
 #include <stdbool.h>                // to use booleans in C
-#include <stdlib.h>                 // to be able to use malloc and free operations
-#include <unistd.h>                 // to be able to use pipe and fork functions
-#include <sys/wait.h>               // to be able to use wait functions
+#include <stdlib.h>                 // to use malloc and free operations
+#include <unistd.h>                 // to use pipe and fork functions
+#include <sys/wait.h>               // to use wait functions
 
 #define MAX_NAMES           100     // maximum number of names to read
 #define MAX_CHARS           30      // maximum number of characters to read
@@ -59,7 +59,7 @@ bool is_blank(const char* s) {
 
 /**
  * Main method that lists ll the names from a given text file as well as how many of each name in a line there are.
- * No assumptions.
+ * Assumptions:                     File names are relative to working directory of program
  * Input Parameters:                argc - number of command line arguments
  *                                  argv - array of command line arguments (strings)
  * Returns:                         0 on success
