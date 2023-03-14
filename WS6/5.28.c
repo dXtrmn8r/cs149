@@ -34,10 +34,12 @@ int main(void) {
       
    while (rightC > leftC){ //Loops while the rightCharacter index is greater than the leftCharacter index
       if(strNoSpaces[leftC] == ' '){
-         strNoSpaces[leftC++] = strNoSpaces[leftC];
+         strNoSpaces[leftC] = strNoSpaces[leftC + 1];
+         leftC++;
       }
       if(strNoSpaces[rightC] == ' '){
-         strNoSpaces[rightC--] = strNoSpaces[rightC];
+         strNoSpaces[rightC] = strNoSpaces[rightC - 1];
+         rightC--;
       }
       if(strNoSpaces[leftC++] != strNoSpaces[rightC--]){
          printf("not a palindrome: %s\n", userStr);
