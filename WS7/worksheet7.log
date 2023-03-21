@@ -1,0 +1,11 @@
+cd ~/Desktop/
+mkdir ws7
+cd ws7
+ls | wc
+ls | sort
+ls | sort | wc
+ls -latr /bin/  > a.out
+cat a.out | more
+du -sh .
+df -i
+history > worksheet7.log
