@@ -32,6 +32,8 @@ int main() {
 
     int num_commands = 0;                                            // number of commands
 
+    char pid_name_out[MAX_CHARS];                                    // filename of the output file descriptor
+    char pid_name_err[MAX_CHARS];                                    // filename of the error file descriptor
     while (fgets(input, 30, stdin) != NULL) {                        // input is read here
         // replaces '\n' with a null character '\0'
         input[strlen(input) - 1] = '\0';
@@ -42,8 +44,9 @@ int main() {
         if (ch_pid == 0) {                                          // child process
             int actual_child_pid = getpid();
 
-            char pid_name_out[MAX_CHARS];                           // filename of the output file descriptor
-            char pid_name_err[MAX_CHARS];                           // filename of the error file descriptor
+            strcpy(pid_name_out, "");                               // initializes pid_name_out properly
+            strcpy(pid_name_err, "");
+
             sprintf(pid_name_out, "%d", actual_child_pid);          // converts int arguments to string args
             strcpy(pid_name_err, pid_name_out);                     // copies PID string in out filename to err filename
 
@@ -101,9 +104,9 @@ int main() {
     // waits for each child process to finish
     while ((ch_pid = wait(&status)) > 0) {
 
-        char pid_name_out[MAX_CHARS];                           // filename of the output file descriptor
-        char pid_name_err[MAX_CHARS];                           // filename of the error file descriptor
-
+        strcpy(pid_name_out, "");                               // initializes pid_name_out properly
+        strcpy(pid_name_err, "");
+        
         // filenames for file descriptors
         sprintf(pid_name_out, "%d.out", ch_pid);
         sprintf(pid_name_err, "%d.err", ch_pid);
