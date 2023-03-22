@@ -12,6 +12,7 @@
 #include <stdlib.h>                     // needed for malloc/free
 #include <string.h>                     // needed for string operations
 #include <unistd.h>                     // needed for execvp, fd constants (i.e. STDOUT_FILENO, STDERR_FILENO)
+#include <sys/wait.h>                   // needed for wait()
 #include <fcntl.h>                      // needed for open() and its corresponding FLAGS (i.e. O_RDWR, O_CREAT, O_APPEND_
 
 #define MAX_CHARS 30
@@ -28,21 +29,21 @@ int main() {
     // char *command_list[MAX_CHARS];
 
     int ch_pid;
-    char pid_name_out[MAX_CHARS];                                     // filename of the output file descriptor
-    char pid_name_err[MAX_CHARS];                                     // filename of the error file descriptor
 
-    // int num_commands = 0;
+    int num_commands = 0;                                            // number of commands
 
     while (fgets(input, 30, stdin) != NULL) {                        // input is read here
         // replaces '\n' with a null character '\0'
         input[strlen(input) - 1] = '\0';
-        //  num_commands++;
+        num_commands++;
 
         ch_pid = fork();                                            // forks each command inputted
 
         if (ch_pid == 0) {                                          // child process
             int actual_child_pid = getpid();
 
+            char pid_name_out[MAX_CHARS];                           // filename of the output file descriptor
+            char pid_name_err[MAX_CHARS];                           // filename of the error file descriptor
             sprintf(pid_name_out, "%d", actual_child_pid);          // converts int arguments to string args
             strcpy(pid_name_err, pid_name_out);                     // copies PID string in out filename to err filename
 
@@ -69,9 +70,12 @@ int main() {
                 argcount++;
                 p = strtok(NULL, " ");
             }
-            argvals[argcount] = NULL;    // stop storing command line arguments by pointing to NULL at the end
+            argvals[argcount] = NULL;                               // stop storing command line arguments by pointing to NULL at the end
 
             // executes each command, and returns exit code
+            printf("Starting command %d; child %d pid of parent %d\n", num_commands, getpid(), getppid());
+            // following line courtesy of L. Sicard-Nöel
+            fflush(stdout);                                         // cleans stdout buffer by writing its contents immediately to stdout
             int exit_code = execvp(argvals[0], argvals);
 
             // exit appropriately from the exit code
@@ -85,7 +89,8 @@ int main() {
             free(p);
             close(out_desc);
             close(err_desc);
-            return exit_code;
+            exit(0);
+//            return exit_code;
         }
     }
 
@@ -95,6 +100,9 @@ int main() {
     // Process API slides, courtesy of Dr. William Andreopoulos
     // waits for each child process to finish
     while ((ch_pid = wait(&status)) > 0) {
+
+        char pid_name_out[MAX_CHARS];                           // filename of the output file descriptor
+        char pid_name_err[MAX_CHARS];                           // filename of the error file descriptor
 
         // filenames for file descriptors
         sprintf(pid_name_out, "%d.out", ch_pid);
@@ -108,13 +116,17 @@ int main() {
         dup2(out_desc, STDOUT_FILENO);
         dup2(err_desc, STDERR_FILENO);
 
+        // exits software
+        printf("Finished child %d pid of parent %d.\n", ch_pid, getpid());
+        // courtesy of L. Sicard-Nöel
+        fflush(stderr);
+        fflush(stdout);
+
         // receive signal from child process
         if (WIFEXITED(status)) {                                        // exited normally
-            fprintf(stderr, "Exited with exit code = %d\n",
-                    ch_pid, WEXITSTATUS(status));
+            fprintf(stderr, "Exited with exit code = %d\n", WEXITSTATUS(status));
         } else if (WIFSIGNALED(status)) {                               // exited abnormally with signal
-            fprintf(stderr, "Child %d terminated with signal %d\n",
-                    ch_pid, WTERMSIG(status));
+            fprintf(stderr, "Terminated with signal %d\n", WTERMSIG(status));
         }
 
         // close used resources
