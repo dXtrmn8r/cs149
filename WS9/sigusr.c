@@ -11,7 +11,8 @@ main(void)
 		err_sys("can't catch SIGUSR2");
     if (signal(SIGCONT, sig_usr) == SIG_ERR)
         err_sys("can't catch SIGCONT");
-	for ( ; ; )
+
+    for ( ; ; )
 		pause();
 }
 
