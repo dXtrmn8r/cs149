@@ -18,9 +18,9 @@ int main() {
         int numStrings = sscanf(input, "%[^ ,] ,%s", str1, str2);
         // returns number of strings properly read and stored
 
-        if (numStrings != 2) {                                      // invalid
+        if (numStrings != 2) {                                      // cannot be split to two strings
             printf("Error: No comma in string.\n\n");
-        } else {                                                    valid
+        } else {                                                    // otherwise
             printf("First word: %s\n", str1);
             printf("Second word: %s\n\n", str2);
         }
