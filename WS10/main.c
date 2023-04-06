@@ -6,16 +6,16 @@
 int numItems;
 int total;
 
-void inputItem(Item* i) {
+void inputItem(ItemToPurchase* i) {
     numItems++;
-    printf("Item %d\n", numItems);
-    printf("Enter the item name: ");
+    printf("ItemToPurchase %d\n", numItems);
+    printf("Enter the ItemToPurchase name: ");
     scanf("%s", i->itemName);
 
-    printf("Enter the item price: ");
+    printf("Enter the ItemToPurchase price: ");
     scanf("%d", &i->itemPrice);
 
-    printf("Enter the item quantity: ");
+    printf("Enter the ItemToPurchase quantity: ");
     scanf("%d", &i->itemQuantity);
 
     total += (i->itemPrice * i->itemQuantity);
@@ -24,7 +24,7 @@ void inputItem(Item* i) {
 int main(void) {
 
     /* Type your code here */
-    Item i1;
+    ItemToPurchase i1;
     inputItem(&i1);
 
     char c = getchar();
@@ -33,7 +33,7 @@ int main(void) {
     }
     printf("\n");
 
-    Item i2;
+    ItemToPurchase i2;
     inputItem(&i2);
 
     printf("\n");

@@ -6,12 +6,12 @@
 #define ITEM_TO_PURCHASE_H
 
 typedef struct ItemToPurchase {
-    char itemName[100];
-    int itemPrice;
-    int itemQuantity;
-} Item;
+    char    itemName[100];
+    int     itemPrice;
+    int     itemQuantity;
+} ItemToPurchase;
 
-void MakeItemBlank(Item *itemToBlank);
+void MakeItemBlank(ItemToPurchase *itemToBlank);
 
-void PrintItemCost(Item *itemToPrint);
+void PrintItemCost(ItemToPurchase *itemToPrint);
 #endif //ITEM_TO_PURCHASE_H
