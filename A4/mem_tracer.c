@@ -17,22 +17,21 @@
  */
 struct TRACE_NODE_STRUCT {
     char* functionid;                // ptr to function identifier (a function name)
-    struct TRACE_NODE_STRUCT* next;  // ptr to next frama
+    struct TRACE_NODE_STRUCT* next;  // ptr to next frame
 };
 typedef struct TRACE_NODE_STRUCT TRACE_NODE;
 static TRACE_NODE* TRACE_TOP = NULL;       // ptr to the top of the stack
 
 
-/* --------------------------------*/
-/* function PUSH_TRACE */
-/*
+/**--------------------------------
+ * function PUSH_TRACE
  * The purpose of this stack is to trace the sequence of function calls,
  * just like the stack in your computer would do.
  * The "global" string denotes the start of the function call trace.
  * The char *p parameter is the name of the new function that is added to the call trace.
  * See the examples of calling PUSH_TRACE and POP_TRACE below
  * in the main, make_extend_array, add_column functions.
-**/
+ */
 void PUSH_TRACE(char* p)          // push p on the stack
 {
     TRACE_NODE* tnode;
@@ -68,11 +67,12 @@ void PUSH_TRACE(char* p)          // push p on the stack
     tnode->next = TRACE_TOP;  // insert fnode as the first in the list
     TRACE_TOP=tnode;          // point TRACE_TOP to the first node
 
-}/*end PUSH_TRACE*/
+}// end PUSH_TRACE
 
-/* --------------------------------*/
-/* function POP_TRACE */
-/* Pop a function call from the stack */
+/**
+ * function POP_TRACE
+ * Pop a function call from the stack
+ */
 void POP_TRACE()    // remove the op of the stack
 {
     TRACE_NODE* tnode;
@@ -84,10 +84,11 @@ void POP_TRACE()    // remove the op of the stack
 
 
 
-/* ---------------------------------------------- */
-/* function PRINT_TRACE prints out the sequence of function calls that are on the stack at this instance */
-/* For example, it returns a string that looks like: global:funcA:funcB:funcC. */
-/* Printing the function call sequence the other way around is also ok: funcC:funcB:funcA:global */
+/** 
+ * function PRINT_TRACE prints out the sequence of function calls that are on the stack at this instance
+ * For example, it returns a string that looks like: global:funcA:funcB:funcC.
+ * Printing the function call sequence the other way around is also ok: funcC:funcB:funcA:global
+ */
 char* PRINT_TRACE()
 {
     int depth = 50; //A max of 50 levels in the stack will be combined in a string for printing out.
@@ -119,13 +120,14 @@ char* PRINT_TRACE()
     return buf;
 } /*end PRINT_TRACE*/
 
-// -----------------------------------------
-// function REALLOC calls realloc
-// TODO REALLOC should also print info about memory usage.
-// TODO For this purpose, you need to add a few lines to this function.
-// For instance, example of print out:
-// "File mem_tracer.c, line X, function F reallocated the memory segment at address A to a new size S"
-// Information about the function F should be printed by printing the stack (use PRINT_TRACE)
+/**-----------------------------------------
+ * function REALLOC calls realloc
+ * TODO REALLOC should also print info about memory usage.
+ * TODO For this purpose, you need to add a few lines to this function.
+ * For instance, example of print out:
+ * "File mem_tracer.c, line X, function F reallocated the memory segment at address A to a new size S"
+ * Information about the function F should be printed by printing the stack (use PRINT_TRACE)
+ */
 void* REALLOC(void* p,int t,char* file,int line)
 {
     p = realloc(p,t);
@@ -138,13 +140,14 @@ void* REALLOC(void* p,int t,char* file,int line)
     return p;
 }
 
-// -------------------------------------------
-// function MALLOC calls malloc
-// TODO MALLOC should also print info about memory usage.
-// TODO For this purpose, you need to add a few lines to this function.
-// For instance, example of print out:
-// "File mem_tracer.c, line X, function F allocated new memory segment at address A to size S"
-// Information about the function F should be printed by printing the stack (use PRINT_TRACE)
+/**-------------------------------------------
+ * function MALLOC calls malloc
+ * TODO MALLOC should also print info about memory usage.
+ * TODO For this purpose, you need to add a few lines to this function.
+ * For instance, example of print out:
+ * "File mem_tracer.c, line X, function F allocated new memory segment at address A to size S"
+ * Information about the function F should be printed by printing the stack (use PRINT_TRACE)
+ */
 void* MALLOC(int t,char* file,int line)
 {
     void* p;
@@ -158,13 +161,14 @@ void* MALLOC(int t,char* file,int line)
     return p;
 }
 
-// ----------------------------------------------
-// function FREE calls free
-// TODO FREE should also print info about memory usage.
-// TODO For this purpose, you need to add a few lines to this function.
-// For instance, example of print out:
-// "File mem_tracer.c, line X, function F deallocated the memory segment at address A"
-// Information about the function F should be printed by printing the stack (use PRINT_TRACE)
+/**----------------------------------------------
+ * function FREE calls free
+ * TODO FREE should also print info about memory usage.
+ * TODO For this purpose, you need to add a few lines to this function.
+ * For instance, example of print out:
+ * "File mem_tracer.c, line X, function F deallocated the memory segment at address A"
+ * Information about the function F should be printed by printing the stack (use PRINT_TRACE)
+ */
 void FREE(void* p,char* file,int line)
 {
     free(p);
@@ -180,16 +184,27 @@ void FREE(void* p,char* file,int line)
 #define free(a) FREE(a,__FILE__,__LINE__)
 
 
-// -----------------------------------------
-// STRING_NODE is a linked list of a node of char*s,
+/**-----------------------------------------
+ * STRING_NODE is a linked list of a node of char*s, that acts like a stack.
+ * *s		pointer to the first character of the string
+ * index	index of the string
+ * *next	pointer to the next node in the linked list
+ */
 typedef struct STRING_NODE {
     char                    *s;             // string stored
     int                     index;          // index in linked list
-    struct STRING_NODE      *next;          // next node in the array
+    struct STRING_NODE      *next;          // next node in the linked list
 } STRING_NODE;
 
-static STRING_NODE *HEAD = NULL;
+static STRING_NODE *HEAD = NULL;            // head of the linked list
 
+/**
+ * PUSH_STRING pushes a string (text) to the top of the stack.
+ * Assumptions:     None
+ * Input @params:   *s      pointer to the start of the string (char*)
+ *                  index   index of string
+ * Returns nothing
+ */
 void PUSH_STRING(char* s, int index) {
     PUSH_TRACE("PUSH_STRING");
     struct STRING_NODE *temp;
@@ -209,6 +224,12 @@ void PUSH_STRING(char* s, int index) {
     POP_TRACE();
 }// end PUSH_STRING
 
+/**
+ * POP_STRING pops the string (text) at the top of the stack.
+ * Assumptions:     None
+ * Input @params:   None
+ * Returns nothing
+ */
 void POP_STRING() {
     PUSH_TRACE("POP_STRING");
 
@@ -220,6 +241,12 @@ void POP_STRING() {
     POP_TRACE();
 }// end POP_STRING
 
+/**
+ * FREE_LINKEDLIST  frees all of the nodes used in the linked list.
+ * Assumptions:     None
+ * Input @params:   None
+ * Returns nothing
+ */
 void FREE_LINKEDLIST() {
     PUSH_TRACE("FREE_LINKEDLIST");
     while (HEAD != NULL)
@@ -227,6 +254,12 @@ void FREE_LINKEDLIST() {
     POP_TRACE();
 }
 
+/**
+ * POP_STRING pops the string (text) at the top of the stack.
+ * Assumptions:     None
+ * Input @params:   None
+ * Returns nothing
+ */
 void print_LL(STRING_NODE *node) {
     PUSH_TRACE("print_LL");
     if (node->next != NULL)
@@ -253,13 +286,13 @@ void make_extend_array()
 
     char    *input = (char *) malloc(bufflen * sizeof(char));       // variable where input is stored.
 
-    //make array
+    // make array
     array = (char**) malloc(sizeof(char*) * ROWS);                  // creates first 10 rows
 
     // as long as there is input to accept
     while(getline(&input, &bufflen, stdin) != 1) {
-        input[strlen(input) - 1] = '\0';                        // clear newline character
-        array[NUM_COMMANDS] = strdup(input);                   // make reference to string on array
+        input[strlen(input) - 1] = '\0';                            // clear newline character
+        array[NUM_COMMANDS] = strdup(input);                        // make reference to string on array
 
         // mem tracing
         printf("File %s, line %d, function %s allocated new memory segment at address %p to of size %lu\n",
@@ -273,7 +306,7 @@ void make_extend_array()
         PUSH_STRING(array[NUM_COMMANDS], NUM_COMMANDS);
         NUM_COMMANDS++;
 
-        // check if realloc is needed
+        // check if realloc is needed (if more ROWS are needed)
         if (NUM_COMMANDS >= ROWS) {
             ROWS += 10;
             array = realloc(array, sizeof(char *) * ROWS);
@@ -286,17 +319,16 @@ void make_extend_array()
     // free linked list
     FREE_LINKEDLIST();
 
-    //now deallocate array
+    //now deallocate array and other pointers used.
     for(i = 0; i < ROWS; i++)
         free(array[i]);
-
-    //
+        
     free(array);
     free(input);
 
     POP_TRACE();
     return;
-}//end make_extend_array
+} //end make_extend_array
 
 
 // ----------------------------------------------
@@ -310,5 +342,5 @@ int main()
     make_extend_array();
 
     POP_TRACE();
-    return(0);
-}// end main
+    return 0;
+} // end main
