@@ -67,7 +67,7 @@ void PUSH_TRACE(char* p)          // push p on the stack
     tnode->next = TRACE_TOP;  // insert fnode as the first in the list
     TRACE_TOP=tnode;          // point TRACE_TOP to the first node
 
-}// end PUSH_TRACE
+} // end PUSH_TRACE
 
 /**
  * function POP_TRACE
@@ -80,7 +80,7 @@ void POP_TRACE()    // remove the op of the stack
     TRACE_TOP = tnode->next;
     free(tnode);
 
-}/*end POP_TRACE*/
+} // end POP_TRACE
 
 
 
@@ -118,7 +118,7 @@ char* PRINT_TRACE()
             break;
     }
     return buf;
-} /*end PRINT_TRACE*/
+} // end PRINT_TRACE
 
 /**-----------------------------------------
  * function REALLOC calls realloc
@@ -236,6 +236,7 @@ void POP_STRING() {
     struct STRING_NODE *temp;
     temp = HEAD;
     HEAD = temp->next;
+    // free(temp->s);
     free(temp);
 
     POP_TRACE();
@@ -279,7 +280,7 @@ void make_extend_array()
     PUSH_TRACE("make_extend_array");
     size_t bufflen = 200;
 
-    int     i, j;
+    int     i;
     char    **array = NULL;
     int     ROWS = 10;
     int     NUM_COMMANDS = 0;
@@ -320,7 +321,7 @@ void make_extend_array()
     FREE_LINKEDLIST();
 
     //now deallocate array and other pointers used.
-    for(i = 0; i < ROWS; i++)
+    for(i = 0; i < NUM_COMMANDS; i++)
         free(array[i]);
         
     free(array);
@@ -341,6 +342,7 @@ int main()
 
     make_extend_array();
 
-    POP_TRACE();
+    POP_TRACE();        // pop main    
+    POP_TRACE();        // nothing left, so just calls free
     return 0;
 } // end main
