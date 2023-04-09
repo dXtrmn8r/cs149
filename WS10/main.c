@@ -8,14 +8,14 @@ int total;
 
 void inputItem(ItemToPurchase* i) {
     numItems++;
-    printf("ItemToPurchase %d\n", numItems);
-    printf("Enter the ItemToPurchase name: ");
+    printf("Item %d\n", numItems);
+    printf("Enter the item name: ");
     scanf("%s", i->itemName);
 
-    printf("Enter the ItemToPurchase price: ");
+    printf("Enter the item price: ");
     scanf("%d", &i->itemPrice);
 
-    printf("Enter the ItemToPurchase quantity: ");
+    printf("Enter the item quantity: ");
     scanf("%d", &i->itemQuantity);
 
     total += (i->itemPrice * i->itemQuantity);
@@ -42,7 +42,7 @@ int main(void) {
     PrintItemCost(&i2);
 
 
-    printf("Total: $%d", total);
+    printf("Total: $%d\n", total);
 
     return 0;
 }
