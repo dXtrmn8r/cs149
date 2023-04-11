@@ -6,6 +6,16 @@
 #include <unistd.h>
 
 /**
+ * Program that implements a dynamic array and a linked list of strings.
+ *
+ * @authors:        Darren Carl Peralta, Henry Choy
+ * @emails:         {darrencarl.peralta,henry.choy}@sjsu.edu
+ *
+ * Last modified:   04/08/2023
+ * Created:         04/06/2023
+ */
+
+/**
  * CS149 assignment#4 helper code.
  * See the TODO's in the comments below! You need to implement those.
  */
@@ -256,9 +266,9 @@ void FREE_LINKEDLIST() {
 }
 
 /**
- * POP_STRING pops the string (text) at the top of the stack.
+ * print_LL prints the stack in order to stdout
  * Assumptions:     None
- * Input @params:   None
+ * Input @params:   *node   the node of the string whose data needs to be printed
  * Returns nothing
  */
 void print_LL(STRING_NODE *node) {
@@ -275,6 +285,10 @@ void print_LL(STRING_NODE *node) {
 // function make_extend_array
 // Example of how the memory trace is done
 // This function is intended to demonstrate how memory usage tracing of malloc and free is done
+/**
+ * Program that takes a list of strings, stores them in a dynamically-allocated array.
+ * Assumptions:         array can initially store up to 10 char*, increases by 10 if limit is reached.
+ */
 void make_extend_array()
 {
     PUSH_TRACE("make_extend_array");
