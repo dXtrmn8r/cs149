@@ -294,7 +294,6 @@ void make_extend_array()
     PUSH_TRACE("make_extend_array");
     size_t bufflen = 200;
 
-    int     i;
     char    **array = NULL;
     int     ROWS = 10;
     int     NUM_COMMANDS = 0;
@@ -305,7 +304,7 @@ void make_extend_array()
     array = (char**) malloc(sizeof(char*) * ROWS);                  // creates first 10 rows
 
     // as long as there is input to accept
-    while(getline(&input, &bufflen, stdin) != 1) {
+    while(getline(&input, &bufflen, stdin) != -1) {
         input[strlen(input) - 1] = '\0';                            // clear newline character
         array[NUM_COMMANDS] = strdup(input);                        // make reference to string on array
 
@@ -335,7 +334,7 @@ void make_extend_array()
     FREE_LINKEDLIST();
 
     //now deallocate array and other pointers used.
-    for(i = 0; i < NUM_COMMANDS; i++)
+    for(int i = 0; i < NUM_COMMANDS; i++)
         free(array[i]);
         
     free(array);
