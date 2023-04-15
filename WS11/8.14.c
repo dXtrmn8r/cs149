@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-
 #define NUM_CONTACTS 3
 
 size_t MAX_CHARS = 200;
@@ -21,11 +20,7 @@ static ContactNode *head = NULL;
 
 /* Define the functions here. */
 void InitializeContactNode(ContactNode *newContact, char *name, char *phoneNumber) {
-    //vnewContact->contactName = (char*) malloc(strlen(name) * sizeof(char));
     newContact->contactName = strdup(name);
-
-    //vnewContact->contactPhoneNumber = (char*) malloc(strlen(phoneNumber) * sizeof(char));
-    //vstrcpy(newContact->contactPhoneNumber, phoneNumber);
     newContact->contactPhoneNumber = strdup(phoneNumber);
 
     newContact->nextNodePtr = NULL;
@@ -97,9 +92,6 @@ int main(void) {
 
 
     FreeContactNode(temp[0]);
-
-//    FreeContactNode(head);
-
     free(name);
     free(phone);
 
