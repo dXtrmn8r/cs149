@@ -92,7 +92,7 @@ int main() {
 
             // exit appropriately
             if (exit_code != 0)
-                exit(exit_code);;
+                exit(exit_code);
         } else {                                                                    // parent process
             // adds process to the hashtable
             struct nlist *newproc = insert(command, ch_pid, num_commands);          // new process node
@@ -114,7 +114,7 @@ int main() {
             dup2(fd_err, STDERR_FILENO);
 
             // executes each command, and returns exit code
-            printf("command = %s\n", newproc->command);
+            // printf("command = %s\n", newproc->command);
             printf("Starting command %d: child %d pid of parent %d\n", num_commands, ch_pid, getpid());
             // following line courtesy of L. Sicard-Nöel
             fflush(stdout);                                                         // cleans stdout buffer by writing its contents immediately to stdout
@@ -239,7 +239,7 @@ int main() {
                     // executes each command, and returns exit code
                     printf("RESTARTING\n");
                     fprintf(stderr, "RESTARTING\n");
-                    printf("rcommand = %s\n", res_command);
+                    // printf("rcommand = %s\n", res_command);
                     printf("Starting command %d: child %d pid of parent %d\n", index, ch_pid, getpid());
                     // following line courtesy of L. Sicard-Nöel
                     fflush(stdout);                                                 // cleans all buffers
