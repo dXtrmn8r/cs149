@@ -35,7 +35,6 @@ double elapsed(struct timespec start_time, struct timespec end_time);
 int main() {
 
     char *command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);               // user command variable
-    char *res_command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);
 
     int ch_pid;                                                                     // pid of forked process
 
@@ -92,7 +91,7 @@ int main() {
 
             // exit appropriately
             if (exit_code != 0)
-                exit(exit_code);
+                exit(exit_code);;
         } else {                                                                    // parent process
             // adds process to the hashtable
             struct nlist *newproc = insert(command, ch_pid, num_commands);          // new process node
@@ -100,14 +99,14 @@ int main() {
 
             strcpy(pid_name_out, "");                                               // initializes pid_name_out properly
             strcpy(pid_name_err, "");
-
+            
             // filenames for file descriptors
-            sprintf(pid_name_out, "%d.out", ch_pid);
-            sprintf(pid_name_err, "%d.err", ch_pid);
+            sprintf(pid_name_out, "%d", ch_pid);                                    // converts int arguments to string args
+            strcpy(pid_name_err, pid_name_out);                                     // copies PID string in out filename to err filename
 
             // open respective file descriptors for each process
-            int fd_out = open(pid_name_out, O_RDWR | O_CREAT | O_APPEND, 0777);
-            int fd_err = open(pid_name_err, O_RDWR | O_CREAT | O_APPEND, 0777);
+            int fd_out = open(strcat(pid_name_out, ".out"), O_RDWR | O_CREAT | O_APPEND, 0777);
+            int fd_err = open(strcat(pid_name_err, ".err"), O_RDWR | O_CREAT | O_APPEND, 0777);
 
             // duplicate file descriptors
             dup2(fd_out, STDOUT_FILENO);
@@ -127,18 +126,19 @@ int main() {
     // Process API slides, courtesy of Dr. William Andreopoulos
     // waits for each child process to finish
     while ((ch_pid = wait(&status)) >= 0) {
+    	char *res_command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);
         if (ch_pid > 0) {
             struct nlist *node = lookup(ch_pid);                                    // node in the hashtable with command
             strcpy(pid_name_out, "");                                               // initializes pid_name_out properly
             strcpy(pid_name_err, "");
 
             // filenames for file descriptors
-            sprintf(pid_name_out, "%d.out", ch_pid);
-            sprintf(pid_name_err, "%d.err", ch_pid);
+            sprintf(pid_name_out, "%d", ch_pid);                                    // converts int arguments to string args
+            strcpy(pid_name_err, pid_name_out);                                     // copies PID string in out filename to err filename
 
             // open respective file descriptors for each process
-            int fd_out = open(pid_name_out, O_RDWR | O_CREAT | O_APPEND, 0777);
-            int fd_err = open(pid_name_err, O_RDWR | O_CREAT | O_APPEND, 0777);
+            int fd_out = open(strcat(pid_name_out, ".out"), O_RDWR | O_CREAT | O_APPEND, 0777);
+            int fd_err = open(strcat(pid_name_err, ".err"), O_RDWR | O_CREAT | O_APPEND, 0777);
 
             // duplicate file descriptors
             dup2(fd_out, STDOUT_FILENO);
@@ -184,8 +184,8 @@ int main() {
                     strcpy(pid_name_err, pid_name_out);                             // copies PID string in out filename to err filename
 
                     // opens the necessary files PID.out and PID.err
-                    fd_out = open(strcat(pid_name_out, ".out"), O_RDWR | O_CREAT | O_APPEND, 0777);
-                    fd_err = open(strcat(pid_name_err, ".err"), O_RDWR | O_CREAT | O_APPEND, 0777);
+                    int fd_out = open(strcat(pid_name_out, ".out"), O_RDWR | O_CREAT | O_APPEND, 0777);
+                    int fd_err = open(strcat(pid_name_err, ".err"), O_RDWR | O_CREAT | O_APPEND, 0777);
 
                     // courtesy of L. Sicard-Nöel
                     // duplicate file descriptors
@@ -225,12 +225,12 @@ int main() {
                     strcpy(pid_name_err, "");
 
                     // filenames for file descriptors
-                    sprintf(pid_name_out, "%d.out", ch_pid);
-                    sprintf(pid_name_err, "%d.err", ch_pid);
+                    sprintf(pid_name_out, "%d", ch_pid);                            // converts int arguments to string args
+                    strcpy(pid_name_err, pid_name_out);                             // copies PID string in out filename to err filename
 
                     // open respective file descriptors for each process
-                    fd_out = open(pid_name_out, O_RDWR | O_CREAT | O_APPEND, 0777);
-                    fd_err = open(pid_name_err, O_RDWR | O_CREAT | O_APPEND, 0777);
+                    fd_out = open(strcat(pid_name_out, ".out"), O_RDWR | O_CREAT | O_APPEND, 0777);
+                    fd_err = open(strcat(pid_name_err, ".err"), O_RDWR | O_CREAT | O_APPEND, 0777);
 
                     // duplicate file descriptors
                     dup2(fd_out, STDOUT_FILENO);
@@ -254,10 +254,10 @@ int main() {
             close(fd_out);
             close(fd_err);
         }
+        free(res_command);
     }
 
     free(command);
-    free(res_command);
 
     return 0;
 }
