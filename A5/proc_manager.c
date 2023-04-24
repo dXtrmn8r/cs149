@@ -34,33 +34,33 @@ double elapsed(struct timespec start_time, struct timespec end_time);
  */
 int main() {
 
-    char *command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);    // user command variable
+    char *command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);               // user command variable
     char *res_command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);
 
-    int ch_pid;                                                     // pid of forked process
+    int ch_pid;                                                                     // pid of forked process
 
-    int num_commands = 0;                                           // number of commands
+    int num_commands = 0;                                                           // number of commands
 
-    char pid_name_out[MAX_PID_CHARS];                               // filename of the output file descriptor
-    char pid_name_err[MAX_PID_CHARS];                               // filename of the error file descriptor
-    while (fgets(command, MAX_COMMAND_CHARS, stdin) != NULL) {      // command is read here
+    char pid_name_out[MAX_PID_CHARS];                                               // filename of the output file descriptor
+    char pid_name_err[MAX_PID_CHARS];                                               // filename of the error file descriptor
+    while (fgets(command, MAX_COMMAND_CHARS, stdin) != NULL) {                      // command is read here
         // replaces '\n' with a null character '\0'
         command[strlen(command) - 1] = '\0';
         num_commands++;
 
-        ch_pid = fork();                                            // forks each command inputted
+        ch_pid = fork();                                                            // forks each command inputted
 
-        if (ch_pid < 0) {                                           // forking error
-            fprintf(stderr, "fork() error");                        // display message
-            exit(2);                                                // exit process
-        } else if (ch_pid == 0) {                                   // child process
-            int actual_child_pid = getpid();                        // pid of child process
+        if (ch_pid < 0) {                                                           // forking error
+            fprintf(stderr, "fork() error");                                        // display message
+            exit(2);                                                                // exit process
+        } else if (ch_pid == 0) {                                                   // child process
+            int actual_child_pid = getpid();                                        // pid of child process
 
-            strcpy(pid_name_out, "");                               // initializes pid_name_out properly
+            strcpy(pid_name_out, "");                                               // initializes pid_name_out properly
             strcpy(pid_name_err, "");
 
-            sprintf(pid_name_out, "%d", actual_child_pid);          // converts int arguments to string args
-            strcpy(pid_name_err, pid_name_out);                     // copies PID string in out filename to err filename
+            sprintf(pid_name_out, "%d", actual_child_pid);                          // converts int arguments to string args
+            strcpy(pid_name_err, pid_name_out);                                     // copies PID string in out filename to err filename
 
             // opens the necessary files PID.out and PID.err
             int fd_out = open(strcat(pid_name_out, ".out"), O_RDWR | O_CREAT | O_APPEND, 0777);
@@ -85,30 +85,19 @@ int main() {
                 argcount++;
                 p = strtok(NULL, " ");
             }
-            argvals[argcount] = NULL;                               // stop storing command line arguments by pointing to NULL at the end
+            argvals[argcount] = NULL;                                               // stop storing command line arguments by pointing to NULL at the end
 
             // execute code
             execvp(argvals[0], argvals);
 
             // exit appropriately
             exit(2);
-
-            // debugging
-            // fprintf(stdout, "Hello world from PID %d.\n", actual_child_pid);
-            // fprintf(stderr, "ERROR from PID %d\n", actual_child_pid);
-
-            // close used resources
-            // free(p);
-            // close(fd_out);
-            // close(fd_err);
-            // exit(0);
-            // return exit_code;
-        } else {                                                // parent process
+        } else {                                                                    // parent process
             // adds process to the hashtable
-            struct nlist *newproc = insert(command, ch_pid, num_commands);        // new process node
-            clock_gettime(CLOCK_MONOTONIC, &newproc->start);                     // gets start time
+            struct nlist *newproc = insert(command, ch_pid, num_commands);          // new process node
+            clock_gettime(CLOCK_MONOTONIC, &newproc->start);                        // gets start time
 
-            strcpy(pid_name_out, "");                           // initializes pid_name_out properly
+            strcpy(pid_name_out, "");                                               // initializes pid_name_out properly
             strcpy(pid_name_err, "");
 
             // filenames for file descriptors
@@ -125,10 +114,9 @@ int main() {
 
             // executes each command, and returns exit code
             printf("command = %s\n", newproc->command);
-            printf("Starting command INDEX %d; child PID %d of parent PPID %d\n", num_commands, ch_pid, getpid());
+            printf("Starting command %d: child %d pid of parent %d\n", num_commands, ch_pid, getpid());
             // following line courtesy of L. Sicard-Nöel
-            fflush(stdout);                                     // cleans stdout buffer by writing its contents immediately to stdout
-            // free(newproc);
+            fflush(stdout);                                                         // cleans stdout buffer by writing its contents immediately to stdout
         }
     }
 
@@ -139,8 +127,8 @@ int main() {
     // waits for each child process to finish
     while ((ch_pid = wait(&status)) >= 0) {
         if (ch_pid > 0) {
-            struct nlist *node = lookup(ch_pid);                // node in the hashtable with res_command
-            strcpy(pid_name_out, "");                               // initializes pid_name_out properly
+            struct nlist *node = lookup(ch_pid);                                    // node in the hashtable with command
+            strcpy(pid_name_out, "");                                               // initializes pid_name_out properly
             strcpy(pid_name_err, "");
 
             // filenames for file descriptors
@@ -164,35 +152,35 @@ int main() {
                 strcpy(res_command, node->command);
 
             // exits program
-            printf("Ending command INDEX %d: child PID %d of parent PPID %d.\n", node->index, node->pid, getpid());
-            printf("Finished at %ld, runtime duration = %f\n", node->finish.tv_sec, elapsed_time);
+            printf("Finished child %d pid of parent %d\n", node->pid, getpid());
+            printf("Finished at %ld, runtime duration %f\n", node->finish.tv_sec, elapsed_time);
             fflush(stdout);
 
             // receive signal from child process
-            if (WIFEXITED(status)) {                                        // exited normally
+            if (WIFEXITED(status)) {                                                // exited normally
                 fprintf(stderr, "Exited with exit code = %d\n", WEXITSTATUS(status));
-            } else if (WIFSIGNALED(status)) {                               // exited abnormally with signal
+            } else if (WIFSIGNALED(status)) {                                       // exited abnormally with signal
                 fprintf(stderr, "Terminated with signal %d\n", WTERMSIG(status));
             }
 
             free(node->command);
             free(node);
 
-            if (elapsed_time > 2.0) {                                       // res_command restarts
+            if (elapsed_time > 2.0) {                                               // command restarts
                 int index = 1;
-                ch_pid = fork();                                            // ch_pid is now the PID of the restarted process
+                ch_pid = fork();                                                    // ch_pid is now the PID of the restarted process
 
-                if (ch_pid < 0) {                                           // forking error
-                    fprintf(stderr, "fork() error");                        // display message
-                    exit(2);                                                // exit process
-                } else if (ch_pid == 0) {                                   // child process
-                    int actual_child_pid = getpid();                        // pid of child process
+                if (ch_pid < 0) {                                                   // forking error
+                    fprintf(stderr, "fork() error");                                // display message
+                    exit(2);                                                        // exit process
+                } else if (ch_pid == 0) {                                           // child process
+                    int actual_child_pid = getpid();                                // pid of child process
 
-                    strcpy(pid_name_out, "");                               // initializes pid_name_out properly
+                    strcpy(pid_name_out, "");                                       // initializes pid_name_out properly
                     strcpy(pid_name_err, "");
 
-                    sprintf(pid_name_out, "%d", actual_child_pid);          // converts int arguments to string args
-                    strcpy(pid_name_err, pid_name_out);                     // copies PID string in out filename to err filename
+                    sprintf(pid_name_out, "%d", actual_child_pid);                  // converts int arguments to string args
+                    strcpy(pid_name_err, pid_name_out);                             // copies PID string in out filename to err filename
 
                     // opens the necessary files PID.out and PID.err
                     fd_out = open(strcat(pid_name_out, ".out"), O_RDWR | O_CREAT | O_APPEND, 0777);
@@ -205,43 +193,33 @@ int main() {
                     fflush(stdout);
                     fflush(stderr);
 
-                    // tokenize each res_command line argument
+                    // tokenize each command line argument
                     // from https://www.geeksforgeeks.org/tokenizing-a-string-cpp/
                     // from https://stackoverflow.com/questions/15472299/split-string-into-tokens-and-save-them-in-an-array
                     char *argvals[MAX_ARGS];
                     int argcount = 0;
 
-                    // char *res_command = strdup(command);
-
                     char *p = strtok(res_command, " ");
 
-                    // store tokenized res_command line arguments into argvals[]
+                    // store tokenized command line arguments into argvals[]
                     while (p != NULL) {
                         argvals[argcount] = p;
                         argcount++;
                         p = strtok(NULL, " ");
                     }
-                    argvals[argcount] = NULL;                               // stop storing res_command line arguments by pointing to NULL at the end
+                    argvals[argcount] = NULL;                                       // stop storing command line arguments by pointing to NULL at the end
 
                     // execute code
                     execvp(argvals[0], argvals);
 
                     // exit appropriately from the exit code
-                    // if (exit_code != 0)
-                    //    exit(exit_code);
-
-                    // debugging
-                    // fprintf(stdout, "Hello world from PID %d.\n", actual_child_pid);
-                    // fprintf(stderr, "ERROR from PID %d\n", actual_child_pid);
-
                     exit(2);
-                    // return exit_code;
-                } else {                                                // parent process
+                } else {                                                            // parent process
                     // adds process to the hashtable
-                    struct nlist *resproc = insert(res_command, ch_pid, num_commands);        // new process node
-                    clock_gettime(CLOCK_MONOTONIC, &resproc->start);                            // gets start time
+                    struct nlist *resproc = insert(res_command, ch_pid, index);     // new process node
+                    clock_gettime(CLOCK_MONOTONIC, &resproc->start);                // gets start time
 
-                    strcpy(pid_name_out, "");                           // initializes pid_name_out properly
+                    strcpy(pid_name_out, "");                                       // initializes pid_name_out properly
                     strcpy(pid_name_err, "");
 
                     // filenames for file descriptors
@@ -256,26 +234,30 @@ int main() {
                     dup2(fd_out, STDOUT_FILENO);
                     dup2(fd_err, STDERR_FILENO);
 
-                    // executes each res_command, and returns exit code
+                    // executes each command, and returns exit code
                     printf("RESTARTING\n");
                     fprintf(stderr, "RESTARTING\n");
                     printf("rcommand = %s\n", res_command);
-                    printf("Starting command INDEX %d; child PID %d of parent PPID %d\n", index, ch_pid, getpid());
+                    printf("Starting command %d: child %d pid of parent %d\n", index, ch_pid, getpid());
                     // following line courtesy of L. Sicard-Nöel
-                    fflush(NULL);                                      // cleans all buffers
+                    fflush(stdout);                                                 // cleans all buffers
+                    fflush(stderr);
                 }
+            } else {
+                fprintf(stderr, "spawning too fast\n");
+                fflush(stderr);
             }
 
             // close used resources
             close(fd_out);
             close(fd_err);
         }
-
-        free(command);
-        free(res_command);
-
-        return 0;
     }
+
+    free(command);
+    free(res_command);
+
+    return 0;
 }
 
 /**
