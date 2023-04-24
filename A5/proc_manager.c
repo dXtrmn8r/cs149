@@ -126,7 +126,7 @@ int main() {
     // Process API slides, courtesy of Dr. William Andreopoulos
     // waits for each child process to finish
     while ((ch_pid = wait(&status)) >= 0) {
-    	char *res_command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);
+        char *res_command = (char *)malloc(sizeof(char) * MAX_COMMAND_CHARS);
         if (ch_pid > 0) {
             struct nlist *node = lookup(ch_pid);                                    // node in the hashtable with command
             strcpy(pid_name_out, "");                                               // initializes pid_name_out properly
