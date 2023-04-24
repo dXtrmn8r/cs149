@@ -1,3 +1,12 @@
+/**
+ *  Author names:           Darren Peralta, Henry Choy
+ *  Author emails:          {darrencarl.peralta,henry.choy}@sjsu.edu
+ *
+ *  Last modified:          04/23/2023
+ *  Creation date:          04/20/2023
+ *
+ *  q5:16 will cause an invalid write since it is originally not part of the allocated memory. valgrind reports an invalid write.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,3 +1,12 @@
+/**
+ *  Author names:           Darren Peralta, Henry Choy
+ *  Author emails:          {darrencarl.peralta,henry.choy}@sjsu.edu
+ *
+ *  Last modified:          04/23/2023
+ *  Creation date:          04/20/2023
+ *
+ *  q6.c:24 will cause an invalid read since *data was read after calling free on it, so it will have unpredictable behavior since it will possibly read garbage data. valgrind reports a read error.
+ */
 #include <stdio.h>
 #include <stdlib.h>
 
