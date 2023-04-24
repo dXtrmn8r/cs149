@@ -88,10 +88,11 @@ int main() {
             argvals[argcount] = NULL;                                               // stop storing command line arguments by pointing to NULL at the end
 
             // execute code
-            execvp(argvals[0], argvals);
+            int exit_code = execvp(argvals[0], argvals);
 
             // exit appropriately
-            exit(2);
+            if (exit_code != 0)
+                exit(exit_code);;
         } else {                                                                    // parent process
             // adds process to the hashtable
             struct nlist *newproc = insert(command, ch_pid, num_commands);          // new process node
@@ -210,10 +211,11 @@ int main() {
                     argvals[argcount] = NULL;                                       // stop storing command line arguments by pointing to NULL at the end
 
                     // execute code
-                    execvp(argvals[0], argvals);
+                    int exit_code = execvp(argvals[0], argvals);
 
                     // exit appropriately from the exit code
-                    exit(2);
+                    if (exit_code != 0)
+                        exit(exit_code);
                 } else {                                                            // parent process
                     // adds process to the hashtable
                     struct nlist *resproc = insert(res_command, ch_pid, index);     // new process node
@@ -262,6 +264,7 @@ int main() {
 
 /**
  * Calculates the time elapsed
+ * Assumptions          None
  * @param start_time    The start time
  * @param end_time      The end time
  * @return              The elapsed time in seconds
