@@ -1,0 +1,32 @@
+    1  rm src.3e.tar.gz 
+    2  man wget
+    3  cd cs149
+    4  wget http://apuebook.com/src.3e.tar.gz
+    5  mv src.3e.tar.gz apue.3e.src.tar.gz 
+    6  tar xzf apue.3e.src.tar.gz 
+    7  ls
+    8  cd apue.3e/
+    9  ls
+   10  rsync arv filedir/ filedir1/
+   11  rsync -arv filedir/ filedir1/
+   12  cp -r filedir/ filedir2/
+   13  ls -latr filedir1/
+            The date modified for these files were unchanged.
+   14  ls -latr filedir2/
+            The date modified for these files were changed to the time each files were copied.
+   15  cd filedir1
+   16  man du
+   17  du -a
+   18  man du
+   19  du -a --time
+   20  find filetype.c
+   21  stat changemod.c
+   22  locate zap.c
+   23  df unlink.c
+   24  df
+   25  cd ../../WS13
+   26  cd ../..
+   27  mkdir WS13
+   28  cd WS13
+   29  ls
+   30  history > worksheet13.log
