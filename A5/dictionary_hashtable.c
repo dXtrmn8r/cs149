@@ -101,23 +101,23 @@ struct nlist *insert(char *command, int pid, int index)
         /* case 1: the pid is not found,
          * so you have to create it with malloc.
          * Then you want to set the pid, command and index */
-        np = (struct nlist *) malloc(sizeof(*np));
-        if (np == NULL || (np->command = strdup(command)) == NULL)
-            return NULL;
-        np -> pid = pid;
-        np -> index = index;
-        hashval = hash(pid);
-        np -> next = hashtab[hashval];
-        hashtab[hashval] = np;
+        np = (struct nlist *) malloc(sizeof(*np));                      // allocates enough data for new struct
+        if (np == NULL || (np->command = strdup(command)) == NULL)      // if malloc fails or duplicating *command fails
+            return NULL;                                                // returns null pointer
+        np -> pid = pid;                                                // sets pid
+        np -> index = index;                                            // and index of process with the command
+        hashval = hash(pid);                                            // calculates the hash value
+        np -> next = hashtab[hashval];                                  // stores the existing linked list node to *np->next
+        hashtab[hashval] = np;                                          // reassigns top of the linked list
     } else {
         /* case 2: the pid is already there in the hashslot,
          * i.e. lookup found the pid. In this case you can either do nothing,
          * or you may want to set again the command
          * and index (depends on your implementation). */
 
-        free(np->command);                                      // free command
-        if (np == NULL || (np->command = strdup(command)) == NULL)
-            return NULL;
+        free(np->command);                                              // free command
+        if (np == NULL || (np->command = strdup(command)) == NULL)      // if free succeeds
+            return NULL;                                                // return NULL pointer
     }
 
     return np;
