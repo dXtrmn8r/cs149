@@ -20,7 +20,7 @@
 
 #define MAX_CHARS           30      // maximum number of characters to read
 
-#define HASHSIZE            676     // 26^2. number of buckets in hashtable
+#define HASHSIZE            26*26*26// 26^2. number of buckets in hashtable
 
 // error messages
 #define USAGE_ERROR         2
@@ -85,12 +85,20 @@ struct NAME_NODE
  * hash table functions
  */
 int hash(char *c) {
-    char offset;
-    if (strlen(c) == 1)
-        offset = 'a';
-    else
-        offset = c[1];
-    return (c[0] % 26) * 26 + (offset % 26);
+    char offset[2];
+    if (strlen(c) == 1) {
+        offset[0] = 'A';
+        offset[1] = 'A';
+    }
+    else if (strlen(c) == 2) {
+        offset[0] = c[1];
+        offset[1] = 'A';
+    }
+    else {
+        offset[0] = c[1];
+        offset[1] = c[2];
+    }
+    return (c[0] - 'A') * (26*26) + (offset[0] - 'A') * 26 + (offset[1] - 'A');
 }
 
 // hashtable
@@ -186,12 +194,13 @@ bool is_blank(const char* s) {
  * Returns:                         0 on success
  *                                  1 if the file does not exist
  */
-int main(int argc, const char *argv[]) {
+int main(int argc, char *argv[]) {
 
     if (argc != 3) {                                // if there is no file specified
         fprintf(stderr, "Usage: %s file1, file2\n", argv[0]);
         return USAGE_ERROR;
     }
+    printf("================================================== LOG MESSAGES ==================================================\n");
     timeStr = (char*)malloc(40);
 
     printf("create first thread\n");
@@ -200,16 +209,15 @@ int main(int argc, const char *argv[]) {
     printf("create second thread\n");
     pthread_create(&tid2,NULL,thread_runner,argv[2]);
 
-    printf("wait for first thread to exit\n");
+    // printf("wait for first thread to exit\n");
     pthread_join(tid1,NULL);
     printf("first thread exited\n");
 
-    printf("wait for second thread to exit\n");
+    // printf("wait for second thread to exit\n");
     pthread_join(tid2,NULL);
     printf("second thread exited\n");
 
-    printf("\n/*************************RESULT********************************/\n");
-
+    printf("================================================== NAME  COUNTS ==================================================\n");
     struct NAME_NODE *np;
     for(int i = 0; i < HASHSIZE; i++){
         np = hashtable[i];
@@ -232,7 +240,6 @@ void* thread_runner(void* x)
     pthread_t me;
 
     me = pthread_self();
-    printf("This is thread %ld (p=%p)",me,p);
 
     FILE *fp;
     char* fileName = (char*) x;
@@ -256,11 +263,11 @@ void* thread_runner(void* x)
 
     if (p!=NULL && p->creator==me) {
         logindex++;
-        printf("Logindex %d, thread %ld, PID %d, %s: This is thread %ld and I created THREADDATA %p",
+        printf("Logindex %d, thread %ld, PID %d, %s: This is thread %ld and I created THREADDATA %p\n",
                logindex, me, getpid(), timeStr, me, p);
     } else {
         logindex++;
-        printf("Logindex %d, thread %ld, PID %d, %s: This is thread %ld and I can access the THREADDATA %p",
+        printf("Logindex %d, thread %ld, PID %d, %s: This is thread %ld and I can access the THREADDATA %p\n",
                logindex, me, getpid(), timeStr, me, p);
     }
 
@@ -297,6 +304,7 @@ void* thread_runner(void* x)
             // if the line contains whitespaces
             if (is_blank(input)) {
                 fprintf(stderr, "Warning - file %s line %lu is empty.\n", fileName, lines_read);
+                continue;                       // goes back to the start of the loop
             }
 
             // replaces the newline character with a NULL character
@@ -324,7 +332,7 @@ void* thread_runner(void* x)
     pthread_mutex_lock(&tlock2);
     // critical section starts
     if (p!=NULL && p->creator==me) {
-        printf("This is thread %ld and I delete THREADDATA",me);
+        printf("Logindex %d, thread %ld, PID %d, %s: This is thread %ld and I delete THREADDATA\n",logindex, me, getpid(), timeStr, me);
         /**
          * TODO Free the THREADATA object.
          * Freeing should be done by the same thread that created it.
@@ -333,7 +341,7 @@ void* thread_runner(void* x)
         free(p);
         p = NULL;
     } else {
-        printf("This is thread %ld and I can access the THREADDATA",me);
+        printf("Logindex %d, thread %ld, PID %d, %s: This is thread %ld and I can access the THREADDATA\n",logindex, me, getpid(), timeStr, me);
     }
     // TODO critical section ends
     pthread_mutex_unlock(&tlock2);
