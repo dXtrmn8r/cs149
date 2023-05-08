@@ -20,7 +20,7 @@
 
 #define MAX_CHARS           30      // maximum number of characters to read
 
-#define HASHSIZE            26*26*26// 26^2. number of buckets in hashtable
+#define HASHSIZE            26      // number of buckets in hashtable
 
 // error messages
 #define USAGE_ERROR         2
@@ -85,20 +85,13 @@ struct NAME_NODE
  * hash table functions
  */
 int hash(char *c) {
-    char offset[2];
-    if (strlen(c) == 1) {
-        offset[0] = 'A';
-        offset[1] = 'A';
+
+    int hashval = 0;
+    for (int i = 0; i < strlen(c); ++i) {
+        hashval += c[i];
     }
-    else if (strlen(c) == 2) {
-        offset[0] = c[1];
-        offset[1] = 'A';
-    }
-    else {
-        offset[0] = c[1];
-        offset[1] = c[2];
-    }
-    return (c[0] - 'A') * (26*26) + (offset[0] - 'A') * 26 + (offset[1] - 'A');
+
+    return hashval % 26;
 }
 
 // hashtable
