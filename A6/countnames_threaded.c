@@ -5,7 +5,7 @@
  *
  *  Author names:                   Darren Peralta, Henry Choy
  *  Author emails:                  {darrencarl.peralta,henry.choy}@sjsu.edu
- *  Last modified date:             05/06/2023
+ *  Last modified date:             05/11/2023
  *  Creation date:                  02/15/2023
  */
 
@@ -149,12 +149,12 @@ void getTime(char* times) {
     sec = local->tm_sec;
 
     day = local->tm_mday;
-    mo = local->tm_mon + 1;             // 0 = January
-    yr = local->tm_year + 1900;         // 0 = 1900
+    mo = local->tm_mon + 1;             // tm_mon = 0 for January
+    yr = local->tm_year + 1900;         // tm_year = 0 for 1900
 
-    if (hr < 12) // before midday
+    if (hr < 12)                        // before midday
         sprintf(times,"%02d/%02d/%d %02d:%02d:%02d am", day, mo, yr, hr, min, sec);
-    else  // after midday
+    else                                // after midday
         sprintf(times,"%02d/%02d/%d %02d:%02d:%02d pm", day, mo, yr, hr - 12, min, sec);
 }
 
@@ -180,8 +180,9 @@ bool is_blank(const char* s) {
 }
 
 /**
- * Main method that lists ll the names from a given text file as well as how many of each name in a line there are.
+ * Main method that lists all the names from two text files as well as how many of each name in a line there are.
  * Assumptions:                     File names are relative to working directory of program
+ *                                  Program will always work with two file names
  * Input Parameters:                argc - number of command line arguments
  *                                  argv - array of command line arguments (strings)
  * Returns:                         0 on success
@@ -189,7 +190,7 @@ bool is_blank(const char* s) {
  */
 int main(int argc, char *argv[]) {
 
-    if (argc != 3) {                                // if there is no file specified
+    if (argc != 3) {                                // if the command line arguments are not in the right format
         fprintf(stderr, "Usage: %s file1, file2\n", argv[0]);
         return USAGE_ERROR;
     }
@@ -244,12 +245,12 @@ void* thread_runner(void* x)
            logindex, me, getpid(), timeStr, me, p);
     pthread_mutex_unlock(&tlock1);
 
-    pthread_mutex_lock(&tlock2); // critical section starts
+    pthread_mutex_lock(&tlock2);                // critical section starts
     if (p==NULL) {
         p = (THREADDATA*) malloc(sizeof(THREADDATA));
         p->creator=me;
     }
-    pthread_mutex_unlock(&tlock2);  // critical section ends
+    pthread_mutex_unlock(&tlock2);              // critical section ends
 
     getTime(timeStr);
     pthread_mutex_lock(&tlock1);
@@ -343,5 +344,3 @@ void* thread_runner(void* x)
     return NULL;
 
 } //end thread_runner
-
-
